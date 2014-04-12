@@ -32,5 +32,5 @@ erbaDx = (COLOR(GREEN))(T([1])([20])(CUBOID([3,15,.2])))
 piscina = T([1,2])([12,2])((COLOR(CYAN))(CUBOID([6,10,.2])))
 edificioSx = S([1,2,3])([.4,.4,.4])(edificio)
 quartiere = STRUCT([erbaDx,erbaSx,T([1,2])([10,20])(S([1,2,3])([10/17.6,10/17.6,10/17.6])(colosseoConBase)),zone, piscina,
-			T([1,2])([0,16])(edificioSx), T([2])([27])(edificio2)])
+			T([1,2])([0,16])(edificioSx), T([2])([27])((COLOR(BLACK))(edificio2))])
 VIEW(quartiere)
