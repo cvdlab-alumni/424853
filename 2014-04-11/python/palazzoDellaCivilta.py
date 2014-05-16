@@ -54,9 +54,9 @@ sezarchi3D=STRUCT([arcoFinestra,T([1])([1.3])]*7)
 sezpiano3D=STRUCT([sezpol3,T([1])([0.35]),sezarchi3D,T([1])([1.3*7]),sezpol3])
 
 north= T(2)(0.35)(STRUCT([sezpiano3D,T([3])([2.5])]*6))
-south= T([2])([0.35+1.3*7])(north)
-east =  T(1)(0.35)(R([1, 2])(PI/2)(north))
-west= T([1])([0.35+1.3*7])(east)
+south= (T([1,2])([0.35*2+1.3*7,0.35*2+1.3*7])(R([1,2])(PI)(north)))
+west =  T([2])([0.35*2+1.3*7])(R([1, 2])(-PI/2)(north))
+east= T([1])([0.35*2+1.3*7])(R([1, 2])(PI/2)(north))
 internalBuilding = T([1,2,3])([1.3,1.3,0.5])(STRUCT([north,south,east,west]))
 
 #tetto
@@ -73,3 +73,4 @@ stepTemp=CUBOID([1.3*12,1,0.4])
 stair_temp= STRUCT([	stepTemp,	T([2,3])([0.5,0.4])		]*12)
 base=(STRUCT([T([1,2])([1.3,-0.5*12])(stair_temp),muri,baseTemp]))
 colosseoConBase= (STRUCT([T([1,2])([1.3*2,1.3*2])(colosseo),base]))
+#VIEW(internalBuilding)

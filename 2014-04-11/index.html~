@@ -8,8 +8,8 @@
 
 <h3>DESCRIZIONE</h3>
 Ho portato numerose miglorie alla edificio consegnato nell'homework1, ho aggiunto lo strato di arcate interno, le finestre, e la scritta che compare sul fronte dell'edificio. 
-Infine ho realizzato un modello immaginario e semplificato della zona che vi è intorno. 
-Il tutto è stato realizzato utilizzando le librerie pyplasm e larcc.
+Infine ho realizzato un modello immaginario e semplificato della zona che vi sta intorno. 
+Il tutto e' stato realizzato utilizzando le librerie pyplasm e larcc.
 
 <h3>Links to the web documentation used</h3>
 
@@ -44,6 +44,8 @@ Il tutto è stato realizzato utilizzando le librerie pyplasm e larcc.
 <img src="images/exercise2_1.jpg" />
 <img src="images/exercise2_2.jpg" />
 <img src="images/exercise2_3.jpg" />
+<img src="images/exercise2_4.jpg" />
+
 <br>
 <br>
 <a href="python/exercise3.py"><b>Exercise3.py</b></a>
