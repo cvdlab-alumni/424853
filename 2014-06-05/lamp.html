@@ -191,6 +191,7 @@
         directionalLight.shadowMapHeight = 2048;
         directionalLight.shadowMapWidth = 2048;
         // directionalLight.castShadow = true;
+        //
         directionalLight.shadowCameraVisible=true;
         directionalLight.target = lamp;
         scene.add(directionalLight);
@@ -311,7 +312,7 @@
         spotLight.distance = 100;
         spotLight.intensity = 1;
         spotLight.castShadow = true;
-        spotLight.shadowCameraVisible=true;
+        //spotLight.shadowCameraVisible=true;
         spotLight.shadowCameraNear=2;
         spotLight.shadowCameraFow = 30;
         bulb.add(spotLight);
@@ -331,9 +332,9 @@
           this.gamma = 1.0;
           this.delta = 0.1;
           this.epsilon = 0;
-         
+          this.animation = false;
           this.shadow = true;
-          //this.startAnimation = false;
+
           this.lightOn = true;
           this.pointColor = pointColor;
           this.intensity = 1;
@@ -377,7 +378,7 @@
           });
         };
 
-        initAnimator();
+        //initAnimator();
 
         var gui = new dat.GUI();
         var axis_control = gui.add(controls, 'showAxisHelper');
@@ -414,8 +415,16 @@
         var lampAnimation = gui.addFolder("lampAnimation");
         lampAnimation.add(controls, 'shadow').onChange(function (e) {
          spotLight.castShadow = e;
+         renderer.clearTarget(spotLight.shadowMap);
         });
 
+        lampAnimation.add(controls,'animation').onChange(function (e) {
+          if(e){
+            initAnimator();
+            animator.start();
+          }
+          else animator.stop();
+        })
         
         lampAnimation.add(controls, 'lightOn').onChange(function (e) {
           if (!e) {
@@ -424,6 +433,7 @@
             spotLight.castShadow = false;
             spotLight.shadowCameraNear = 100;
             text.castShadow = false;
+            renderer.clearTarget(spotLight.shadowMap);
           } else {
             bulb.add(spotLight);
             coverLamp.add( light );
@@ -464,7 +474,7 @@
         $('body').append(renderer.domElement);
 
         render();
-        animator.start();
+        
 
         //---------------------------------------------------------------------------------------------
         // RENDER FUNCTION - to manage RENDERING,ANIMATIONS, UTILITIES ETC 
@@ -473,7 +483,6 @@
           stats.update();
           KF.update();
           trackballControls.update();
-          //TWEEN.update();
           requestAnimationFrame(render);
           renderer.render(scene, camera);
 
