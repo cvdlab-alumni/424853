@@ -1,0 +1,5 @@
+function loadApartment () {
+	
+
+	return mesh;
+}

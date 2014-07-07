@@ -1,8 +1,25 @@
-function mkRoomFloor () {
+function mkFloors (apartment) {
+	console.log('Make floor');
+	var mainFloor = mkMainFloor();
+	mainFloor.position.set(.3,6.6,.32);
+	apartment.add(mainFloor);
+	
+	var corridorFloor = mkCorridorFloor();
+	corridorFloor.position.set(.3,27.8,.32);
+	apartment.add(corridorFloor);
 
-  // create a basic shape
+	var bathroomFloor = mkBathroomFloor();
+	bathroomFloor.position.set(12.3,27.8,.32);
+	apartment.add(bathroomFloor);
+
+	var balconyFloor = mkBalconyFloor();
+	balconyFloor.position.set(.3,.1,.32);
+	apartment.add(balconyFloor);
+}
+
+function mkMainFloor () {
 	var shape = new THREE.Shape();
-
+	var options = {amount: 0,bevelThickness: 2,bevelSize: 1,bevelSegments: 3,bevelEnabled: false,curveSegments: 12,steps: 1};
 	// startpoint
 	shape.moveTo(0, 0);
 
@@ -14,88 +31,79 @@ function mkRoomFloor () {
 	shape.lineTo(0,21.2);
 	shape.lineTo(0,0);
 	var floorGeometry = new THREE.ShapeGeometry(shape);
-  var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/textures/general/floor-wood.jpg' );
-  floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-  floorTexture.repeat.set( .1, .1 );
-
-  var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-  
-  var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-  return floor;
-}
-
-function mkBalconyFloor(){
-  var floorGeometry = new THREE.PlaneGeometry(12,6.3);
-  var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/textures/general/floor-wood.jpg' );
-  floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-  floorTexture.repeat.set( .1, .1 );
-
-  var floorMaterial = new THREE.MeshPhongMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-  var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-  return floor;
-
+	var planeGeometry = new THREE.ExtrudeGeometry(shape,options);
+	var plane = createMesh(planeGeometry, "floor-wood.jpg");
+	plane.material.map.repeat.set(.3,.2);
+	return plane;
 }
 function mkCorridorFloor () {
+	var shape = new THREE.Shape();
+	var options = {amount: 0,bevelThickness: 2,bevelSize: 1,bevelSegments: 3,bevelEnabled: false,curveSegments: 12,steps: 1};
+	// startpoint
+	shape.moveTo(0, 0)
 
-  // create a basic shape
-	// create a basic shape
-  var shape = new THREE.Shape();
+	// straight line upwards
+	shape.lineTo(12, 0);
+	shape.lineTo(12, 9);
+	shape.lineTo(0,9);
+	shape.lineTo(0,0);
+	var floorGeometry = new THREE.ShapeGeometry(shape);
+	var planeGeometry = new THREE.ExtrudeGeometry(shape,options);
+	var plane = createMesh(planeGeometry, "floor-wood.jpg");
+	plane.material.map.repeat.set(.3,.2);
+	return plane;
+}
+function mkBathroomFloor () {
+	var shape = new THREE.Shape();
+	var options = {amount: 0,bevelThickness: 2,bevelSize: 1,bevelSegments: 3,bevelEnabled: false,curveSegments: 12,steps: 1};
+	// startpoint
+	shape.moveTo(0, 0)
 
-  // startpoint
-  shape.moveTo(0, 0)
+	// straight line upwards
+	shape.lineTo(8, 0);
+	shape.lineTo(8, 9);
+	shape.lineTo(0,9);
+	shape.lineTo(0,0);
+	var floorGeometry = new THREE.ShapeGeometry(shape);
+	var planeGeometry = new THREE.ExtrudeGeometry(shape,options);
+	var plane = createMesh(planeGeometry, "bathroom-floor.jpg");
+	return plane;
 
-  // straight line upwards
-  shape.lineTo(12, 0);
-  shape.lineTo(12, 9);
-  shape.lineTo(0,9);
-  shape.lineTo(0,0);
-  var floorGeometry = new THREE.ShapeGeometry(shape);
-  var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/textures/general/floor-wood.jpg' );
-  floorTexture.wrapS = THREE.RepeatWrapping; 
-  floorTexture.wrapT = THREE.RepeatWrapping; 
-  //floorTexture.repeat.set(.08, .1 );
-  floorTexture.repeat.set(.1,.1);
-  var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-  
-  var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-  return floor;
 }
 
-function mkBathroomFloor (callback) {
-  var planeGeometry = new THREE.PlaneGeometry(8,9);
-  var planeMaterial = new THREE.MeshLambertMaterial({ ambient: 0xFFFFff,
-       specular: 0xffffff, shininess: 10, shading: THREE.SmoothShading });
-  //var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+function mkBalconyFloor () {
+	var shape = new THREE.Shape();
+	var options = {amount: 0,bevelThickness: 2,bevelSize: 1,bevelSegments: 3,bevelEnabled: false,curveSegments: 12,steps: 1};
+	// startpoint
+	shape.moveTo(0, 0)
 
-  var planeTexture;
-  createMesh(planeGeometry, "bathroomprova.jpg", "bathroomprova-bump.jpg", function (mesh) {
-    planeTexture = mesh;
-    planeTexture.material.map.wrapT = planeTexture.material.map.wrapS = THREE.RepeatWrapping;
-    o = planeTexture;
-    planeTexture.material.map.repeat.set(8,8);
-
-
-
-    callback && callback(planeTexture);
-  });
+	// straight line upwards
+	shape.lineTo(12, 0);
+	shape.lineTo(12, 6.3);
+	shape.lineTo(0,6.3);
+	shape.lineTo(0,0);
+	var floorGeometry = new THREE.ShapeGeometry(shape);
+	var planeGeometry = new THREE.ExtrudeGeometry(shape,options);
+	var plane = createMesh(planeGeometry, "balcony-floor.jpg");
+	//plane.material.map.repeat.set(.3,.2);
+	return plane;
 }
 
-function createMesh(geom, imageFile, bump, callback) {
-    THREE.ImageUtils.loadTexture("assets/textures/general/" + imageFile, undefined, function (texture) {
-    geom.computeVertexNormals();
-    var mat = new THREE.MeshPhongMaterial();
-    mat.map = texture;
 
-    if (bump) {
-      var bump = THREE.ImageUtils.loadTexture("assets/textures/general/" + bump)
-      mat.bumpMap = bump;
-      mat.bumpScale = 0.5;
-    }
-
-    var mesh = new THREE.Mesh(geom, mat);
-
-    callback && callback(mesh);
-  });
-  
-
+function createMesh (geometry,image) {
+	
+	material = mkTextureMaterial(image);
+	var mesh = new THREE.Mesh(geometry,material);
+	return mesh;	
 }
+
+function mkTextureMaterial(image) {
+	
+	var texture = THREE.ImageUtils.loadTexture("textures/" + image);
+	var material = new THREE.MeshPhongMaterial({
+	map: texture,
+	})
+	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+	return material;
+}
+

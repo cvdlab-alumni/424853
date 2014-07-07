@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <title>door example</title> 
+  <style>
+    body{
+      margin: 0;
+      overflow: hidden;
+    }
+  </style> 
+  </head>
+  <body> 
+    <!-- JavaScript libraries -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+    <script src="assets/libs/TrackballControls.js"></script>
+      
+    <!-- Javascript code that runs our Three.js examples --> 
+    <script>
+      // once everything is loaded, we run our Three.js stuff.
+      $(function () {
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
+
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // create a render and set the size
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // renderer.shadowMapEnabled = true;
+
+        var projector = new THREE.Projector();
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+
+        // create the ground plane
+        var planeGeometry = new THREE.PlaneGeometry(60,20);
+        var planeMaterial =  new THREE.MeshLambertMaterial({color: 0xffffff});
+        var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+        // plane.receiveShadow  = true;
+
+        // rotate and position the plane
+        plane.rotation.x=-0.5*Math.PI;
+        plane.position.set(15,0,0);
+
+        // add the plane to the scene
+        scene.add(plane);
+
+        // create a cube
+        var doorGeometry = new THREE.BoxGeometry(2,5,.2);
+        var doorMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
+        var door = new THREE.Mesh(doorGeometry, doorMaterial);
+        // cube.castShadow = true;
+
+        // position the cube
+        door.position.set(1,2.5,0);
+
+        var perno = new THREE.Object3D();
+
+        perno.add(door);
+
+        door.interact = function () {
+            door.parent.rotation.y= Math.PI/2;
+        }
+
+        // add the cube to the scene
+        scene.add(perno);
+
+
+        
+
+        // position and point the camera to the center of the scene
+        camera.position.set(-10,30,30);
+        camera.up = new THREE.Vector3(0,1,0);
+        camera.lookAt(scene.position);
+
+        // add spotlight for the shadows
+        var spotLight = new THREE.SpotLight( 0xffffff );
+        spotLight.position.set(-40,60,-10);
+        // spotLight.castShadow = true;
+        scene.add(spotLight);
+
+        // add the output of the renderer to the html element
+        $('body').append(renderer.domElement);
+
+        // call the render function
+        
+      render();
+
+      function render() {
+        
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+
+      }
+
+       function onDocumentMouseDown (event) {
+             event.preventDefault();
+
+        // map viewport coordinates in ([-1,1], [-1,1], 0.5)
+        var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
+        projector.unprojectVector(vector, camera);
+
+        var raycaster = new THREE.Raycaster(camera.position, 
+          vector.sub(camera.position).normalize());
+
+        var intersects = raycaster.intersectObjects([door]);
+
+        if (intersects.length > 0) {
+          intersects[ 0 ].object.interact && intersects[ 0 ].object.interact();
+          
+        }
+      }
+      });
+
+       
+
+
+    </script>
+ </body>
+</html>

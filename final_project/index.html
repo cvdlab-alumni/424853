@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Dorjan Dika - Final Project</title> 
+    <style>
+      body{
+        margin: 0;
+        overflow: hidden;
+      }
+
+      #stats {  /* Align stats top-left */
+        position: absolute;
+        left: 0px;
+        top: 0px;      
+      }
+      #pointer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -20px;
+        margin-left: -20px;
+        width: 40px;
+        height: 40px;
+        display: none;
+        background-image: url("textures/pointer.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      #instructions {
+      text-shadow:0px 0px 20px rgba(194,241,255,1);
+      font-weight:bold;
+      font-size:30px;
+      font-family:arial, helvetica, sans-serif;
+      text-align:center;
+      position: fixed;
+      top: 5%;
+      left: 80%;
+      margin-top: -15px;
+      margin-left: -50px;
+      width: 200px;
+      height: 30px;
+      display: none;
+    }
+
+    #plerror {
+      text-shadow:0px 0px 20px rgba(250,100,100,1);
+      font-weight:bold;
+      font-size:30px;
+      font-family:arial, helvetica, sans-serif;
+      text-align:center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-top: -15px;
+      margin-left: -100px;
+      width: 200px;
+      height: 30px;
+      display: none;
+    }
+
+    </style> 
+  </head>
+
+  <body>
+    <div id="stats"></div>
+  <div id="pointer"></div>
+  <div id="instructions">'ESC' to exit</div>
+  <div id="plerror">Pointer Lock ERROR!</div>
+    <script src="libs/three.min.js"></script>
+    <script src="libs/jquery.min.js"></script>  
+    <script src="libs/tween.min.js"></script>
+    
+    <script src="libs/Stats.min.js"></script>
+    <script src="libs/dat.gui.min.js"></script>
+    <script src="libs/TrackballControls.js"></script>
+    <script src="libs/PointerLockControls.js"></script>
+
+    <script type="text/javascript" src="libs/OBJLoader.js"></script> 
+    <script type="text/javascript" src="libs/MTLLoader.js"></script> 
+    <script type="text/javascript" src="libs/OBJMTLLoader.js"></script>
+    
+    <script src="scripts/personControls.js"></script>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/lights.js"></script>
+    <script src="scripts/init.js"></script>
+    <script src="scripts/floors.js"></script>
+    <script src="scripts/walls.js"></script>
+    <script src="scripts/door.js"></script>
+    <script src="scripts/controlGUI.js"></script>
+   <!-- Javascript code that runs our Three.js examples --> 
+    <script>
+        // once everything is loaded, we run our Three.js stuff.
+        $(function () {  
+          
+
+          $('body').append(webGLRenderer.domElement);
+
+          var mesh;
+          
+
+          var loader = new THREE.OBJLoader();
+          loader.load('models/apartment.obj', function (obj) {
+            global_o = obj;
+            var multiMaterial = [
+            new THREE.MeshLambertMaterial({color: 0xEFEFEF, side: THREE.DoubleSide, shading: THREE.FlatShading}),
+            new THREE.MeshBasicMaterial({wireframe: false, overdraw: false, color: 0xffffff, side: THREE.DoubleSide})
+            ];
+
+            mesh = THREE.SceneUtils.createMultiMaterialObject(obj.children[0].geometry, multiMaterial);
+            apartment.add(mesh);
+          });
+        //apartment.position.set(0,0,0);
+
+        scene.add(apartment);
+        mkFloors(apartment);
+        mkWalls(apartment);
+        mkDoors(apartment);
+        putLights(scene,apartment);
+        
+        apartment.rotation.x=-Math.PI/2;
+        apartment.rotation.z= Math.PI;
+        apartment.position.set(10,0,-40);
+        
+
+
+        render();
+
+      });
+    </script>  
+  </body>
+</html>
