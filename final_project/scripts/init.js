@@ -5,7 +5,7 @@ scene = new THREE.Scene();
 
 
 // create a camera, which defines where we're looking at.
-camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0,1,50);
 camera.up = new THREE.Vector3(0, 1,0);
 // position and point the camera to the center of the scene

@@ -1,5 +1,5 @@
 function mkFloors (apartment) {
-	console.log('Make floor');
+	//console.log('Make floor');
 	var mainFloor = mkMainFloor();
 	mainFloor.position.set(.3,6.6,.32);
 	apartment.add(mainFloor);

@@ -110,7 +110,7 @@ function mkMainRoom_wall3 () {
 }
 
 function mkKitchenWall () {
-	console.log('make kitchenWall');
+	//console.log('make kitchenWall');
 	var kitchenWall = new THREE.Object3D();
 	
 	var kitchenWallLf = mkKitchenWall_side();
@@ -398,20 +398,7 @@ function mkBathroomWall () {
 
 	var bathroomWall3 = mkBathroomWall_3();
 	bathroomWall3.position.set(7.98,0,0);
-	bathroomWall.add(bathroomWall3);
-
-	//Bathroom Light
-      var pointColor = "#00ff00";
-       pointLight = new THREE.PointLight(pointColor);
-      pointLight.distance = 10;
-
-      pointLight.position.set(4,4,3);
-      
-
-      bathroomWall.add(pointLight);
-      
-      
-      
+	bathroomWall.add(bathroomWall3);      
 
 	return bathroomWall;
 }
