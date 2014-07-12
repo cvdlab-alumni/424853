@@ -97,33 +97,13 @@ function mk_doorBalcony (width, height, depth,reverse) {
  	var doorMaterial = mkDoorMaterial(texture);
  	var port = doorBSP.toMesh(doorMaterial);
 	port.geometry.computeVertexNormals();
-	/*door.add(hook);
-	hook.add(port);
-	port.position.set(reverse*width/2);
-
-	toIntersect.push(port);
-	port.open=false;
-	port.interact=function(){
-		if(!this.open){
-			if (reverse===1){
-				new TWEEN.Tween(this.parent.rotation)
-				.to({z: -Math.PI/2},1000)
-				.start();
-			} else {
-				new TWEEN.Tween(this.parent.rotation)
-				.to({z: Math.PI/2},1000)
-				.start();
-			}
-			
-			this.open=true;
-		} else {
-			new TWEEN.Tween(this.parent.rotation)
-			.to({z: 0},1000)
-			.start();
-			this.open=false;
-		}
-	}
- 	console.log('return porta doorBalcony')*/
+ 	var glass = mk_glass(.7,1,.1);
+ 	port.add(glass);
+ 	toIntersect.push(glass);
+ 	glass.interact = function () {
+ 		this.parent.interact();
+ 	}
+ 	glass.position.set(0, .5,0);
  	port.rotation.x= Math.PI/2;
 	return port;
 }
@@ -142,8 +122,20 @@ function mkDoorMaterial(image, bump) {
 }
 
 function mk_glass (width,height,depth) {
-	var glass = new THREE.Object3D();
+	var texture = THREE.ImageUtils.loadTexture("textures/glass.jpg");
+	var glass_material = new THREE.MeshPhongMaterial({
+		map: texture,
+		shininess: 50,
+		specular: '#B5FFFA',
+		transparent: true,
+		opacity: 0.6,
+		metal: true
+	});
 
+	var glass = new THREE.Object3D();
+	var glassGeometry = new THREE.BoxGeometry(width, height,depth);
+	glass = new THREE.Mesh(glassGeometry,glass_material);
+	return glass;
 }
 
 var doorOpenTween;

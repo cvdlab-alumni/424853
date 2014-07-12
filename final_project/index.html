@@ -59,14 +59,22 @@
       display: none;
     }
 
+    #video {
+      display: none; 
+      position: absolute; 
+      left 10px: 15px; 
+      bottom: 10px;
+    }
+
     </style> 
   </head>
 
   <body>
     <div id="stats"></div>
-  <div id="pointer"></div>
-  <div id="instructions">'ESC' to exit</div>
-  <div id="plerror">Pointer Lock ERROR!</div>
+    <div id="pointer"></div>
+    <div id="instructions">'ESC' to exit</div>
+    <div id="plerror">Pointer Lock ERROR!</div>
+    <video id="video" src="movies/rendering3D.ogg" controls="false" autoplay="false"></video> 
     <script src="libs/three.min.js"></script>
     <script src="libs/jquery.min.js"></script>  
     <script src="libs/tween.min.js"></script>
@@ -89,6 +97,11 @@
     <script src="scripts/walls.js"></script>
     <script src="scripts/door.js"></script>
     <script src="scripts/controlGUI.js"></script>
+    <script src="scripts/balcony.js"></script>
+    <script src="scripts/bathroom.js"></script>
+    <script src="scripts/modelLoader.js"></script>
+    <script src="scripts/tv.js"></script>
+
    <!-- Javascript code that runs our Three.js examples --> 
     <script>
         // once everything is loaded, we run our Three.js stuff.
@@ -118,13 +131,11 @@
         mkWalls(apartment);
         mkDoors(apartment);
         putLights(scene,apartment);
-        
+        putModels(apartment);
         apartment.rotation.x=-Math.PI/2;
         apartment.rotation.z= Math.PI;
         apartment.position.set(10,0,-40);
         
-
-
         render();
 
       });
