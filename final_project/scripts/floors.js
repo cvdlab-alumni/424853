@@ -90,21 +90,4 @@ function mkBalconyFloor () {
 }
 
 
-function createMesh (geometry,image) {
-	
-	material = mkTextureMaterial(image);
-	var mesh = new THREE.Mesh(geometry,material);
-	return mesh;	
-}
-
-function mkTextureMaterial(image) {
-	
-	var texture = THREE.ImageUtils.loadTexture("textures/" + image);
-	var material = new THREE.MeshPhongMaterial({
-	map: texture,
-	shininess: 5
-	})
-	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-	return material;
-}
 

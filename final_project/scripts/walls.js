@@ -65,7 +65,7 @@ function mkMainRoom_wall1 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "mainRoom-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-pink.jpg");
     wall.rotation.x = Math.PI/2;
     return wall;
 }
@@ -81,7 +81,7 @@ function mkMainRoom_wall2 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "mainRoom-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-pink.jpg");
     wall.rotation.x = Math.PI/2;
     wall.rotation.y = Math.PI/2;
     return wall;
@@ -104,7 +104,7 @@ function mkMainRoom_wall3 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "mainRoom-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-pink.jpg");
     wall.rotation.x = Math.PI/2;
     return wall;
 }
@@ -315,7 +315,7 @@ function mkCorridorWall_1 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "corridor-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-green.jpg");
     wall.rotation.x = Math.PI/2;
     return wall;		
 }
@@ -335,7 +335,7 @@ function mkCorridorWall_2 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "corridor-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-green.jpg");
     wall.rotation.x = Math.PI/2;
     wall.rotation.y = Math.PI/2;
     return wall;
@@ -354,7 +354,7 @@ function mkCorridorWall_3 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "corridor-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-green.jpg");
     wall.rotation.x = Math.PI/2;
     return wall;
 }
@@ -370,7 +370,7 @@ function mkCorridorWall_4 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "corridor-wall.jpg");
+    var wall = createMesh(wallGeometry, "wall-green.jpg");
     wall.rotation.x = Math.PI/2;
     wall.rotation.y = Math.PI/2;
     return wall;
@@ -420,7 +420,7 @@ function mkBathroomWall_1 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);	
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "bathroom/bathroom-wall.jpg","bathroom/bathroom-wall-bump.jpg");
+    var wall = createMesh(wallGeometry, "bathroom/tiles.jpg","bathroom/tiles-bump.jpg");
     wall.rotation.x = Math.PI/2;
     wall.rotation.y = Math.PI/2;
     return wall;
@@ -439,7 +439,7 @@ function mkBathroomWall_2 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);	
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "bathroom/bathroom-wall.jpg","bathroom/bathroom-wall-bump.jpg");
+    var wall = createMesh(wallGeometry, "bathroom/tiles.jpg","bathroom/tiles-bump.jpg");
     wall.rotation.x = Math.PI/2;
     return wall; 
 }
@@ -457,7 +457,7 @@ function mkBathroomWall_3 () {
 	shape.lineTo(0,3);
 	shape.lineTo(0,0);	
 	var wallGeometry = new THREE.ExtrudeGeometry(shape,options);
-    var wall = createMesh(wallGeometry, "bathroom/bathroom-wall.jpg","bathroom/bathroom-wall-bump.jpg");
+    var wall = createMesh(wallGeometry, "bathroom/tiles.jpg","bathroom/tiles-bump.jpg");
     wall.rotation.x = Math.PI/2;
     wall.rotation.y = Math.PI/2;
     return wall; 
@@ -626,6 +626,7 @@ function createMesh (geometry,image,bump) {
 		material = mkTextureMaterialBump(image,bump);	
 	else
 		material = mkTextureMaterial(image);
+	geometry.computeVertexNormals();
 	var mesh = new THREE.Mesh(geometry,material);
 	return mesh;	
 }
@@ -643,12 +644,11 @@ function mkTextureMaterial(image) {
 function mkTextureMaterialBump(image,bump) {
 	
 	var texture = THREE.ImageUtils.loadTexture("textures/" + image);
-	var material = new THREE.MeshPhongMaterial({
-	map: texture,
-	})
-	var normal = THREE.ImageUtils.loadTexture("textures/"+bump);
-    material.normalMap = normal;
+	var material = new THREE.MeshPhongMaterial({color: 0xffffff, map: texture})
+	var bumpTexture = THREE.ImageUtils.loadTexture("textures/"+bump);
+    material.bumpMap = bumpTexture;
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-	normal.wrapS = normal.wrapT = THREE.RepeatWrapping;
+	bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
+	material.bumpScale = .03;
 	return material;
 }

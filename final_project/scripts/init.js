@@ -23,7 +23,7 @@ for (var i = 0; i < 6; i++)
 	}));
 
 var skybox_material = new THREE.MeshFaceMaterial(materialArray);
-var skybox = new THREE.Mesh(new THREE.CubeGeometry(500, 500, 500), skybox_material);
+var skybox = new THREE.Mesh(new THREE.BoxGeometry(500, 500, 500), skybox_material);
 skybox.color = new THREE.Color('#FFFFFF');
 scene.add(skybox);
 
@@ -43,7 +43,7 @@ var projector = new THREE.Projector();
 document.addEventListener('mousedown', onDocumentMouseDown, false);
 var toIntersect = [];
 
-// create a render and set the size
+
 var webGLRenderer = new THREE.WebGLRenderer();
 webGLRenderer.setClearColor(new THREE.Color(0xeeeeee, 1.0));
 webGLRenderer.setSize(window.innerWidth, window.innerHeight);
@@ -64,11 +64,12 @@ function mkBaseMaterial() {
 		map: texture,
 		shininess: 20
 	})
-	var normal = THREE.ImageUtils.loadTexture('textures/prato-norm.jpg');
-	material.normalMap = normal;
-	texture.repeat.set(20, 20);
+	var bump = THREE.ImageUtils.loadTexture('textures/prato-bump.jpg');
+	material.bumpMap = bump;
+	texture.repeat.set(40, 40);
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;	
-	normal.repeat.set(20, 20);
-	normal.wrapS = normal.wrapT = THREE.RepeatWrapping;
+	bump.repeat.set(40, 40);
+	bump.wrapS = bump.wrapT = THREE.RepeatWrapping;
+	material.bumpScale = .1;
 	return material;
 }

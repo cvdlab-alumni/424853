@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Dorjan Dika - Final Project</title> 
     <style>
       body{
         margin: 0;
         overflow: hidden;
       }
+
 
       #stats {  /* Align stats top-left */
         position: absolute;
@@ -53,6 +53,7 @@
     <script src="libs/PointerLockControls.js"></script>
     <script src="libs/csg.js"></script>
     <script src="libs/ThreeCSG.js"></script>
+    <script src="libs/keyframe.js"></script>
     <script type="text/javascript" src="libs/OBJLoader.js"></script> 
     <script type="text/javascript" src="libs/MTLLoader.js"></script> 
     <script type="text/javascript" src="libs/OBJMTLLoader.js"></script>
@@ -70,6 +71,7 @@
     <script src="scripts/modelLoader.js"></script>
     <script src="scripts/eagle.js"></script>
     <script src="scripts/tv.js"></script>
+    <script src="scripts/ballFoot.js"></script>
 
    <!-- Javascript code that runs our Three.js examples --> 
     <script>
@@ -96,11 +98,13 @@
         //apartment.position.set(0,0,0);
 
         scene.add(apartment);
+        /*
         mkFloors(apartment);
-        mkWalls(apartment);
         mkDoors(apartment);
-        putLights(scene,apartment);
         putModels(apartment);
+        */
+        mkWalls(apartment);
+        putLights(scene,apartment);
         apartment.rotation.x=-Math.PI/2;
         apartment.rotation.z= Math.PI;
         apartment.position.set(10,0,-40);
