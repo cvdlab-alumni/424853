@@ -1,4 +1,3 @@
-/* FIRST PERSON CONTROLS */
 
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -23,17 +22,12 @@ if (havePointerLock) {
     }
   }
 
-  var pointerlockerror = function(event) {
-    $("#error").fadeIn(500);
-  }
-
+  
   document.addEventListener('pointerlockchange', pointerlockchange, false);
   document.addEventListener('mozpointerlockchange', pointerlockchange, false);
   document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
 
-  document.addEventListener('pointerlockerror', pointerlockerror, false);
-  document.addEventListener('mozpointerlockerror', pointerlockerror, false);
-  document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
+  
 
   var startFP = function() {
     controls = new THREE.PointerLockControls(camera);

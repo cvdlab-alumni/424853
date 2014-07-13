@@ -4,7 +4,7 @@
 scene = new THREE.Scene();
 //Base Apartment
 var baseApartmentMaterial = mkBaseMaterial();
-var baseApartment = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 2, 2), baseApartmentMaterial);
+var baseApartment = new THREE.Mesh(new THREE.PlaneGeometry(150, 150, 15, 15), baseApartmentMaterial);
 baseApartment.receiveShadow = true;
 baseApartment.rotation.x = -Math.PI/2;
 
@@ -26,14 +26,13 @@ var skybox_material = new THREE.MeshFaceMaterial(materialArray);
 var skybox = new THREE.Mesh(new THREE.CubeGeometry(500, 500, 500), skybox_material);
 skybox.color = new THREE.Color('#FFFFFF');
 scene.add(skybox);
-// create a camera, which defines where we're looking at.
+
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0,1.5,50);
 camera.up = new THREE.Vector3(0, 1,0);
-// position and point the camera to the center of the scene
 camera.lookAt(scene.position);
 
-// create trackball controls
+// trackball controls
 var trackballControls = new THREE.TrackballControls(camera);
 var apartment = new THREE.Object3D();
 var axisHelper = new THREE.AxisHelper(3);
@@ -63,7 +62,7 @@ function mkBaseMaterial() {
 	var texture = THREE.ImageUtils.loadTexture('textures/prato.jpg');
 	var material = new THREE.MeshPhongMaterial({
 		map: texture,
-		shininess: 5
+		shininess: 20
 	})
 	var normal = THREE.ImageUtils.loadTexture('textures/prato-norm.jpg');
 	material.normalMap = normal;

@@ -1,6 +1,7 @@
 var stats = initStats();
 
 
+
 function onDocumentMouseDown(event) {
         event.preventDefault();
   if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
@@ -22,8 +23,7 @@ function onDocumentMouseDown(event) {
 }
 
 function initStats() {
-  var stats = new Stats();
-  stats.setMode(0); // 0: fps, 1: ms
+  var stats = new Stats(); 
   $('body').append(stats.domElement);
   return stats;
 }
@@ -31,7 +31,7 @@ function render() {
   stats.update();
   trackballControls.update();
   TWEEN.update();
-// first person controls
+  // first person controls
   if (FPenabled === true) {
     computeFPControls();
   }
@@ -41,6 +41,5 @@ function render() {
   }
 
   webGLRenderer.render(scene, camera);
-  // render using requestAnimationFrame
   requestAnimationFrame(render);
 }

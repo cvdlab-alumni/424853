@@ -1,4 +1,5 @@
-      var lampShadeMaterial = new THREE.MeshPhongMaterial({ color: 0xB0C4DE , shading: THREE.SmoothShading, shininess: 30, metal: false, side: THREE.DoubleSide});
+var lampMaterial = new THREE.MeshPhongMaterial({ color: 0xB0C4DE , shading: THREE.SmoothShading, shininess: 30, metal: true, side: THREE.DoubleSide});
+
 function putLights (scene,apartment) {
 
 	
@@ -22,7 +23,7 @@ function putLights (scene,apartment) {
       scene.add(dir2Helper)
 
       //Bathroom Light
-      var light1 = mk_lamp_ceiling(0.3, 10);
+      var light1 = mkLamp(0.3, 10);
       apartment.add(light1);
       light1.position.set(16,32.6,3);
       
@@ -30,21 +31,21 @@ function putLights (scene,apartment) {
       /*
       //Corridor Light
       */
-      var light2 = mk_lamp_ceiling(0.3, 10);
+      var light2 = mkLamp(0.3, 10);
       apartment.add(light2);
       light2.position.set(6.3,32.6,3)
 
       /*
       //Mainroom Light
       */
-      var light3 = mk_lamp_ceiling(0.3, 30);
+      var light3 = mkLamp(0.3, 30);
       apartment.add(light3);
       light3.position.set(10.2,16,3)
 
       /*
       //Balcony Light
       */
-      var light4 = mk_lamp_ceiling(0.3, 10);
+      var light4 = mkLamp(0.3, 10);
       apartment.add(light4);
       light4.position.set(6,3,3)
 
@@ -53,44 +54,42 @@ function putLights (scene,apartment) {
 
 }
 
-function mk_lamp_ceiling(radius_lampShade, distance){
+function mkLamp(radius, distance){
             
-            var lampShadeGeometry = new THREE.SphereGeometry(radius_lampShade, 8, 8, 0, Math.PI, 0, Math.PI);
+            var lampGeometry = new THREE.SphereGeometry(radius, 8, 8, 0, Math.PI, 0, Math.PI);
                 
-            // lampShadeMaterial.side = THREE.DoubleSide;
-            var lampShade = new THREE.Mesh(lampShadeGeometry, lampShadeMaterial);
-            lampShade.scale.z=0.5;
+            // lampMaterial.side = THREE.DoubleSide;
+            var lamp = new THREE.Mesh(lampGeometry, lampMaterial);
+            lamp.scale.z=0.5;
 
             //   var spotLight = new THREE.SpotLight(0xffffff);
             //   spotLight.angle=Math.PI/2;
             //   spotLight.intensity=0;
-            //   lampShade.add(spotLight);
-            // lampShade.spotLight=spotLight;
+            //   lamp.add(spotLight);
+            // lamp.spotLight=spotLight;
 
             var plight = new THREE.PointLight( 0xFFFFFF, 0, distance );
-            lampShade.add(plight);
-            lampShade.pointLight =plight;
+            lamp.add(plight);
+            lamp.pointLight =plight;
             // plight.intensity=0;
             plight.position.set(0,0,-1);
 
             var t = new THREE.Object3D();
-            lampShade.add(t);
+            lamp.add(t);
             t.position.set(0,0,-6);
-            lampShade.target = t;
+            lamp.target = t;
 
-            toIntersect.push(lampShade);
-            lampShade.on=false;
-      lampShade.interact=function(){
+            toIntersect.push(lamp);
+            lamp.on=false;
+      lamp.interact=function(){
             if(!this.on){
                   this.pointLight.intensity=2;
-                  // this.children[1].intensity=2;
                   this.on=true;
             } else {
                   this.pointLight.intensity=0;
-                  // this.children[1].intensity=0;
                   this.on=false;
             }
       }
-      return lampShade;
+      return lamp;
 
 }

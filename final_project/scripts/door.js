@@ -1,5 +1,5 @@
-var ext_door_texture_material = mkDoorMaterial("door.jpg", "door-bump.jpg");
-var ins_door_material = mkDoorMaterial("doorIn.jpg", "doorIn-bump.jpg");
+var external_door_material = mkDoorMaterial("door.jpg", "door-bump.jpg");
+var internal_door_material = mkDoorMaterial("doorIn.jpg", "doorIn-bump.jpg");
 
 function mkDoors (apartment) {
 	var doorInput = mk_door(1.3,2.4,.15,1);
@@ -29,9 +29,9 @@ function mk_door(width, height, depth, reverse){
 		var port = mk_doorBalcony(width/2,height,depth,reverse);
 	else 
 		if(depth===0.15)
-			var port = new THREE.Mesh(portGeometry, ext_door_texture_material);
+			var port = new THREE.Mesh(portGeometry, external_door_material);
 		else
-			var port = new THREE.Mesh(portGeometry, ins_door_material);
+			var port = new THREE.Mesh(portGeometry, internal_door_material);
 	var hook = new THREE.Object3D();
 	var door = new THREE.Object3D();
 	door.add(hook);
@@ -128,7 +128,7 @@ function mk_glass (width,height,depth) {
 		shininess: 50,
 		specular: '#B5FFFA',
 		transparent: true,
-		opacity: 0.6,
+		opacity: 0.4,
 		metal: true
 	});
 
@@ -138,8 +138,6 @@ function mk_glass (width,height,depth) {
 	return glass;
 }
 
-var doorOpenTween;
-var doorCloseTween;
 
 
 

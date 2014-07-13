@@ -1,5 +1,5 @@
-function importObjMtl(obj, mtl, doubleSide, transformObject) {
-	var container = new THREE.Object3D();
+function importObjMtl(obj, mtl, doubleSide) {
+	var pivot = new THREE.Object3D();
 	var loader = new THREE.OBJMTLLoader();
 	loader.addEventListener('load', function(event) {
 		var object = event.content;
@@ -10,17 +10,14 @@ function importObjMtl(obj, mtl, doubleSide, transformObject) {
 				}
 			});
 		}
-		if (transformObject) {
-			transformObject(object);
-		}
-		container.add(object);
+		pivot.add(object);
 	});
 	loader.load(obj,mtl);
-	return container;
+	return pivot;
 }
 
 function importObj (obj) {
-	var container = new THREE.Object3D(); 
+	var pivot = new THREE.Object3D(); 
   	loader = new THREE.OBJLoader();
     loader.load(obj, function (obj) {
     	global_o = obj;
@@ -28,12 +25,31 @@ function importObj (obj) {
           new THREE.MeshLambertMaterial({color: 0x990000, metal: true })
         ];
         mesh = THREE.SceneUtils.createMultiMaterialObject(obj.children[0].geometry, multiMaterial);
-        container.add(mesh);
+        pivot.add(mesh);
     });
-    return container;
+    return pivot;
 }
 
 function putModels (apartment) {
+	
+	//Sofa
+	var sofaObj = 'models/sofa/cornerSofa/cornerSofa.obj';
+	var sofaMtl = 'models/sofa/cornerSofa/cornerSofa.mtl';
+	sofa = importObjMtl(sofaObj,sofaMtl);
+	sofa.scale.set(0.012, 0.012, 0.012);
+	sofa.rotation.x = Math.PI / 2;
+	sofa.rotation.y = Math.PI / 2;
+	sofa.position.set(14.2, 14.5, .4);
+	apartment.add(sofa);
+	
+	var tv = importObjMtl('models/tv/contemp/contemp_living_room.obj', 'models/tv/contemp/contemp_living_room.mtl');
+	tv.scale.set(0.015, 0.013, 0.013);
+	tv.rotation.x = Math.PI / 2;
+	tv.rotation.y = -Math.PI / 2;
+	tv.position.set(19.9, 17,.3);
+	apartment.add(tv);
+	mkTvScreen (tv);
+	
 	
 	//desk 
 	var deskObj = 'models/desk/ModernDeskOBJ.obj';
@@ -55,61 +71,36 @@ function putModels (apartment) {
 	chair.position.set(19.8,26,.3);
 	apartment.add(chair);
 
-		
-
-	//Sofa
-	var sofaObj = 'models/sofa/sofa.obj';
-	var sofaMtl = 'models/sofa/sofa.mtl';
-	sofa = importObjMtl(sofaObj,sofaMtl);
-	sofa.scale.set(0.016, 0.016, 0.016);
-	sofa.rotation.x = Math.PI / 2;
-	sofa.position.set(17.2, 20, 1);
-	apartment.add(sofa);
-
-
-	sofa2 = importObjMtl(sofaObj,sofaMtl);
-	sofa2.scale.set(0.016, 0.016, 0.016);
-	sofa2.rotation.x = Math.PI / 2;
-	sofa2.rotation.y = Math.PI;
-	sofa2.position.set(17, 14, 1);
-	apartment.add(sofa2);
-
-
-	//Sofa white
-	var sofaObj3 = 'models/sofa/clear_sofa.obj';
-	var sofaMtl3 = 'models/sofa/clear_sofa.mtl';
-	var sofa3 = importObjMtl(sofaObj3,sofaMtl3);
-	sofa3.scale.set(0.5, 0.5, 0.5);
-	sofa3.rotation.x = Math.PI / 2;
-	sofa3.rotation.y = Math.PI / 2;
-	sofa3.position.set(14, 17, .5);
-	apartment.add(sofa3);
-
+	
 	//Table
 	
-	var tableObj = 'models/table/table.obj';
-	var tableMtl = 'models/table/table.mtl';
+	var tableObj = 'models/coffeeTable/coffeeTable.obj';
+	var tableMtl = 'models/coffeeTable/coffeeTable.mtl';
 	var table = importObjMtl(tableObj, tableMtl);
-	table.scale.set(0.02, 0.01, 0.015);
+	table.scale.set(0.015, 0.015, 0.015);
 	table.rotation.x = Math.PI / 2;
 	table.rotation.y = Math.PI / 2;
 	table.position.set(17, 17, .3)
 	apartment.add(table);
 
-	
-	var tvShelf = importObjMtl('models/tv/tvShelf.obj', 'models/tv/tvShelf.mtl');
-	tvShelf.scale.set(0.02, 0.02, 0.02);
-	tvShelf.rotation.x = Math.PI / 2;
-	tvShelf.rotation.y = -Math.PI / 2;
-	tvShelf.position.set(19.9, 17,1);
-	apartment.add(tvShelf);
 
 	//Bed
-	var bed = importObjMtl('models/bed/bed1.obj', 'models/bed/bed1.mtl', true);
-	bed.scale.set(1.5, 1.5, 1.5);
+	var bed = importObjMtl('models/bed/lit.obj', 'models/bed/lit.mtl');
+	bed.scale.set(.02, .02, .02);
 	bed.rotation.x = Math.PI/2;
-	bed.position.set(2, 27, .3);
+	bed.position.set(2, 23.5, .5);
 	apartment.add(bed);
+
+	//armoireLotus
+	var armoireLotus = importObjMtl('models/armoireLotus/armoireLotus.obj', 'models/armoireLotus/armoireLotus.mtl');
+	armoireLotus.scale.set(.02, .01, .02);
+	armoireLotus.rotation.x = Math.PI/2;
+	armoireLotus.rotation.y = Math.PI;
+	armoireLotus.position.set(.5, 18, 1.5);
+	apartment.add(armoireLotus);
+
+
+
 
 	var kitchen = importObjMtl('models/kitchen/kitchen.obj', 'models/kitchen/kitchen.mtl', true);
 	kitchen.scale.set(.05, .018, .018);
@@ -117,28 +108,21 @@ function putModels (apartment) {
 	kitchen.rotation.y = Math.PI;
 	kitchen.position.set(16, 5.5, .3);
 	apartment.add(kitchen);
-	//Piano cucina doppio
-	var planeKitchen = importObjMtl('models/kitchen/plane/plane.obj','models/kitchen/plane/plane.mtl');
+	//Plane sink
+	var planeKitchen = importObjMtl('models/kitchen/lavello/lavello.obj','models/kitchen/lavello/lavello.mtl');
 	planeKitchen.rotation.set(Math.PI/2,Math.PI,0);
 	planeKitchen.scale.set(0.024,0.018,0.018);
-	planeKitchen.position.set(20.1,8.01,0.3);
+	planeKitchen.position.set(16.1,8.01,0.3);
 	apartment.add(planeKitchen);
 
-	var frizer = importObj('models/kitchen/frizer.obj');
-	frizer.scale.set(.037,.035,.035);
-	frizer.rotation.set(Math.PI/2,-Math.PI/2,0);
-	frizer.position.set(13.5,5,.3);
+	var frizer = importObjMtl('models/kitchen/frigo/frigo.obj','models/kitchen/frigo/frigo.mtl');
+	frizer.scale.set(.018,.016,.018);
+	frizer.rotation.set(Math.PI/2,Math.PI,0);
+	frizer.position.set(22.5,3,.3);
 	apartment.add(frizer);
-	//TV
-	var tv = importObjMtl('models/tv.obj', 'models/tv.mtl', true);
-	tv.scale.set(0.22, 0.2, 0.22);
-	tv.rotation.set(Math.PI / 2, -Math.PI/2, 0);
-	tv.position.set(20, 17, 1);
-	mkTvScreen (tv);
-	apartment.add(tv);
-	
 	putObjetcBalcony(apartment);
 	putObjetcBathroom (apartment);
+	
 
 
 }

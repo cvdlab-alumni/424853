@@ -27,38 +27,7 @@
         background-repeat: no-repeat;
         background-size: contain;
       }
-      #instructions {
-      text-shadow:0px 0px 20px rgba(194,241,255,1);
-      font-weight:bold;
-      font-size:30px;
-      font-family:arial, helvetica, sans-serif;
-      text-align:center;
-      position: fixed;
-      top: 5%;
-      left: 80%;
-      margin-top: -15px;
-      margin-left: -50px;
-      width: 200px;
-      height: 30px;
-      display: none;
-    }
-
-    #plerror {
-      text-shadow:0px 0px 20px rgba(250,100,100,1);
-      font-weight:bold;
-      font-size:30px;
-      font-family:arial, helvetica, sans-serif;
-      text-align:center;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      margin-top: -15px;
-      margin-left: -100px;
-      width: 200px;
-      height: 30px;
-      display: none;
-    }
-
+      
     #video {
       display: none; 
       position: absolute; 
@@ -72,8 +41,7 @@
   <body>
     <div id="stats"></div>
     <div id="pointer"></div>
-    <div id="instructions">'ESC' to exit</div>
-    <div id="plerror">Pointer Lock ERROR!</div>
+    
     <video id="video" src="movies/rendering3D.ogg" controls="false" autoplay="false"></video> 
     <script src="libs/three.min.js"></script>
     <script src="libs/jquery.min.js"></script>  
@@ -100,6 +68,7 @@
     <script src="scripts/balcony.js"></script>
     <script src="scripts/bathroom.js"></script>
     <script src="scripts/modelLoader.js"></script>
+    <script src="scripts/eagle.js"></script>
     <script src="scripts/tv.js"></script>
 
    <!-- Javascript code that runs our Three.js examples --> 

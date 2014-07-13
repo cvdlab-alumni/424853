@@ -15,9 +15,9 @@ var video_material = new THREE.MeshBasicMaterial({
 });
 
 function mkTvScreen (tv) {
-	var tvScreenGeometry = new THREE.PlaneGeometry(1.4, 0.9);
+	var tvScreenGeometry = new THREE.PlaneGeometry(1.3, 0.7);
 	var tvScreen = new THREE.Mesh(tvScreenGeometry, video_material);
-	tvScreen.position.set(19.9, 17, 1.8);
+	tvScreen.position.set(19.56, 17, 1.44);
 	tvScreen.rotation.set(Math.PI / 2, -Math.PI/2, 0);
 	tvScreen.visible = false;
 	tvScreen.isOn = false;
@@ -25,12 +25,10 @@ function mkTvScreen (tv) {
 		if (this.isOn) {
 			video.pause();
 			tvScreen.visible = false;
-			//tvScreen.children[0].intensity = 0;
 			this.isOn = false;
 		} else {
 			tvScreen.visible = true;
 			video.play();
-			//tvScreen.children[0].intensity = 4;
 			this.isOn = true;
 		}
 	}
