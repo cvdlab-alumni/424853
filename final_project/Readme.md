@@ -12,7 +12,7 @@ This is the final project of the graphic computational's course.
 
 I have rappresent a model of my home in **Three.js** environment.
 
-You can access the project via the link [dordika.github.io](dordika.github.io).
+You can access the project via the link [dordika.github.io](http://dordika.github.io).
 
 The project consists of some scripts, i present here the most functional.
 
