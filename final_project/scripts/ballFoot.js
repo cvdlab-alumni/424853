@@ -66,11 +66,11 @@ function initAnimatorSecond() {
 		    keys:[0,.2,.4,.6, .8, 1], 
 		    values:[
 		    	{ x:9,z : 2 },
-		      	{ x:7,z : 0 },
+		      	{ x:7,z : .1 },
 				{ x:6,z : 1.5 },
-				{ x:5,z : 0 },
+				{ x:5,z : .1 },
 				{ x:4,z : 1 },
-				{ x:3,z : 0 },
+				{ x:3,z : .2 },
 		    ],
 		    target: pivot.position
 		  },

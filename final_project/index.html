@@ -66,7 +66,6 @@
     <script src="scripts/walls.js"></script>
     <script src="scripts/door.js"></script>
     <script src="scripts/controlGUI.js"></script>
-    <script src="scripts/balcony.js"></script>
     <script src="scripts/bathroom.js"></script>
     <script src="scripts/modelLoader.js"></script>
     <script src="scripts/eagle.js"></script>
@@ -95,16 +94,14 @@
             mesh = THREE.SceneUtils.createMultiMaterialObject(obj.children[0].geometry, multiMaterial);
             apartment.add(mesh);
           });
-        //apartment.position.set(0,0,0);
 
         scene.add(apartment);
-        /*
+        mkRoof(apartment);
         mkFloors(apartment);
         mkDoors(apartment);
         putModels(apartment);
-        */
-        mkWalls(apartment);
         putLights(scene,apartment);
+        mkWalls(apartment);
         apartment.rotation.x=-Math.PI/2;
         apartment.rotation.z= Math.PI;
         apartment.position.set(10,0,-40);

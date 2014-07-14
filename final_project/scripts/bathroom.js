@@ -1,24 +1,16 @@
 function putObjetcBathroom (apartment) {
+	
+	var bathroomFurnitureObj = 'models/bathroom/bathroomFurniture/bathroomFurniture.obj';
+	var bathroomFurnitureMtl = 'models/bathroom/bathroomFurniture/bathroomFurniture.mtl';
+	var bathroomFurniture = importObjMtl(bathroomFurnitureObj,bathroomFurnitureMtl);
+	bathroomFurniture.scale.set(.025, .023, .025);
+	bathroomFurniture.rotation.x = Math.PI / 2;
+	bathroomFurniture.rotation.y = Math.PI;
+	bathroomFurniture.position.set(18.5,27.8,.07);
+	apartment.add(bathroomFurniture);
+
 	/*BIDET*/
 	
-	var cabinetObj = 'models/bathroom/mirror_cabinet.obj';
-	var cabinetMtl = 'models/bathroom/mirror_cabinet.mtl';
-	var cabinet = importObjMtl(cabinetObj,cabinetMtl);
-	cabinet.scale.set(.015, .015, .015);
-	cabinet.rotation.x = Math.PI / 2;
-	cabinet.rotation.y = Math.PI;
-	cabinet.position.set(19.98,28.42,-.043);
-	apartment.add(cabinet);
-
-	var sinkObj = 'models/bathroom/sink.obj';
-	var sinkMtl = 'models/bathroom/sink.mtl';
-	var sink = importObjMtl(sinkObj,sinkMtl);
-	sink.scale.set(.015, .015, .015);
-	sink.rotation.x = Math.PI / 2;
-	sink.rotation.y = Math.PI;
-	sink.position.set(19.98,28.42,.3);
-	apartment.add(sink);
-
 	var bidetObj = 'models/bathroom/bidet.obj';
 	var bidetMtl = 'models/bathroom/bidet.mtl';
 	var bidet = importObjMtl(bidetObj,bidetMtl);

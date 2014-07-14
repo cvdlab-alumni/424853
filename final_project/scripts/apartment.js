@@ -1,5 +1,0 @@
-function loadApartment () {
-	
-
-	return mesh;
-}

@@ -16,7 +16,6 @@ if (havePointerLock) {
       camera.lookAt(scene.position)
       controls.getObject().position.set(0,1.8,0);
       $("#pointer").fadeIn(1000);
-      $("#instructions").fadeIn(2000);
     } else {
       location.reload();
     }

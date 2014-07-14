@@ -36,7 +36,9 @@ camera.lookAt(scene.position);
 var trackballControls = new THREE.TrackballControls(camera);
 var apartment = new THREE.Object3D();
 var axisHelper = new THREE.AxisHelper(3);
-scene.add(axisHelper);
+//scene.add(axisHelper);
+
+
 
 // mouse interaction
 var projector = new THREE.Projector();

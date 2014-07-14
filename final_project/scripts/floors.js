@@ -90,4 +90,18 @@ function mkBalconyFloor () {
 }
 
 
+//roof 
+//Roof	
 
+function mkRoof (apartment) {
+
+	var roofGeometry =  new THREE.PlaneGeometry( 20.7, 33,20,20);
+	
+	roof = createMesh( roofGeometry, "roof.jpg","roof-bump.jpg" );
+	roof.material.map.repeat.set(8,8);
+	roof.material.bumpMap.repeat.set(8,8);
+	roof.visible = false;
+	apartment.add(roof);
+	roof.position.set(0+20.7/2,4.1+33/2,3.31)
+
+}

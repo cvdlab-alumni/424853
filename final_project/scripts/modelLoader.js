@@ -31,7 +31,7 @@ function importObj (obj) {
 }
 
 function putModels (apartment) {
-	
+
 	//Sofa
 	var sofaObj = 'models/sofa/cornerSofa/cornerSofa.obj';
 	var sofaMtl = 'models/sofa/cornerSofa/cornerSofa.mtl';
@@ -42,6 +42,50 @@ function putModels (apartment) {
 	sofa.position.set(14.2, 14.5, .4);
 	apartment.add(sofa);
 	
+	//Man on Sofa
+	var sitMaleObj = 'models/sitMale/sitMale01.obj';
+	var sitMaleMtl = 'models/sitMale/sitMale01.mtl';
+	sitMale = importObjMtl(sitMaleObj,sitMaleMtl);
+	sitMale.scale.set(0.01, 0.01, 0.01);
+	sitMale.rotation.x = Math.PI / 2;
+	sitMale.rotation.y = Math.PI / 2;
+	sitMale.position.set(14.9, 16.9, .4);
+	apartment.add(sitMale);
+	
+	//flower
+	var flowerObj = 'models/balcony/flowerBox/flowerBox.obj';
+	var flowerMtl = 'models/balcony/flowerBox/flowerBox.mtl';
+	var flower = importObjMtl(flowerObj,flowerMtl,true);
+	flower.scale.set(.03, .03, .03);
+	flower.rotation.x = Math.PI / 2;
+	flower.rotation.y = Math.PI / 4;
+	flower.position.set(1.7,5,.3);
+	apartment.add(flower);
+
+	
+	var palmObj = 'models/palm/fanPalm.obj';
+	var palmMtl = 'models/palm/fanPalm.mtl';
+	var palm = importObjMtl(palmObj,palmMtl);
+	palm.rotation.x = Math.PI / 2;
+	palm.position.set(0,-4,0);
+	apartment.add(palm);
+
+
+	var palm2 = importObjMtl(palmObj,palmMtl);
+	palm2.rotation.x = Math.PI / 2;
+	palm2.position.set(20,-4,0);
+	apartment.add(palm2);
+
+
+	
+	var cabinetObj = 'models/cabinet2/cabinet2.obj';
+	var cabinetMtl = 'models/cabinet2/cabinet2.mtl';
+	var cabinet = importObjMtl(cabinetObj,cabinetMtl);
+	cabinet.scale.set(.015, .015, .015);
+	cabinet.rotation.x = Math.PI / 2;
+	cabinet.rotation.y = Math.PI;
+	cabinet.position.set(5,6.6,-.043);
+	apartment.add(cabinet);
 	var tv = importObjMtl('models/tv/contemp/contemp_living_room.obj', 'models/tv/contemp/contemp_living_room.mtl');
 	tv.scale.set(0.015, 0.013, 0.013);
 	tv.rotation.x = Math.PI / 2;
@@ -99,15 +143,13 @@ function putModels (apartment) {
 	armoireLotus.position.set(.5, 18, 1.5);
 	apartment.add(armoireLotus);
 
-
-
-
 	var kitchen = importObjMtl('models/kitchen/kitchen.obj', 'models/kitchen/kitchen.mtl', true);
 	kitchen.scale.set(.05, .018, .018);
 	kitchen.rotation.x = Math.PI/2;
 	kitchen.rotation.y = Math.PI;
 	kitchen.position.set(16, 5.5, .3);
 	apartment.add(kitchen);
+	
 	//Plane sink
 	var planeKitchen = importObjMtl('models/kitchen/lavello/lavello.obj','models/kitchen/lavello/lavello.mtl');
 	planeKitchen.rotation.set(Math.PI/2,Math.PI,0);
@@ -120,9 +162,34 @@ function putModels (apartment) {
 	frizer.rotation.set(Math.PI/2,Math.PI,0);
 	frizer.position.set(22.5,3,.3);
 	apartment.add(frizer);
-	putObjetcBalcony(apartment);
 	putObjetcBathroom (apartment);
 	
-
+	var picture = mkPicture("textures/picture/quadro.jpg","textures/picture/cornice-bump.png");
+	picture.position.set(.32,11,2);
+	picture.rotation.x = Math.PI/2;
+	picture.rotation.y = Math.PI/2;
+	picture.scale.set(.25,.25,.25);
+	apartment.add(picture)
 
 }
+	function mkPicture (image, bump) {
+		var w = 8;
+       	var h = 5;
+
+      	// create the ground plane
+      	var geom = new THREE.PlaneGeometry(w,h);
+		var texture = THREE.ImageUtils.loadTexture(image)
+        geom.computeVertexNormals();
+        var mat = new THREE.MeshPhongMaterial();
+        mat.map = texture;
+
+        if (bump) {
+          var bump = THREE.ImageUtils.loadTexture(bump)
+          mat.bumpMap = bump;
+          mat.bumpScale = 0.5;
+        }
+
+        var mesh = new THREE.Mesh(geom, mat);
+
+        return mesh;
+	}
